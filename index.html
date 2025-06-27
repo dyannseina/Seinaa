@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DyAn.</title>
+    <title>Dya</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
         * {
@@ -37,23 +37,17 @@
         
         .card {
             position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 28px;
             width: 100%;
-            max-width: 440px;
+            max-width: 600px;
             color: #fff;
             text-align: center;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(25px) saturate(160%);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.05) inset;
             z-index: 10;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
         
         .avatar {
@@ -64,7 +58,7 @@
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
             margin-bottom: 15px;
-            transition: transform 0.5s;
+            transition: transform 0.5s ease-in-out;
         }
         
         .avatar:hover {
@@ -72,54 +66,48 @@
         }
         
         h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: 2.4em;
+            font-size: 2em;
             font-weight: 700;
-            color: #fff;
             text-shadow: 0 0 10px #fff, 0 0 20px #00e6e6;
         }
         
         .slogan {
-            font-size: 1.2em;
-            font-weight: 500;
+            font-size: 1em;
+            margin: 12px 0 20px;
             color: #ffffffcc;
-            margin: 14px 0 30px;
-            text-align: center;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 16px;
-            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 24px;
+            /* ĐÃ TĂNG KHOẢNG CÁCH */
+            margin-bottom: 25px;
         }
         
         .social-links a {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            transition: 0.3s ease;
         }
         
         .social-links img {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
+            transition: 0.3s;
+        }
+        
+        .social-links img:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 6px #fff);
         }
         
         .tabs {
             display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 12px;
         }
         
         .tab-button {
@@ -127,59 +115,47 @@
             border: none;
             color: #fff;
             font-weight: 600;
-            padding: 10px 20px;
+            padding: 8px 12px;
             cursor: pointer;
+            font-size: 0.9em;
             position: relative;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-button:hover {
-            opacity: 0.85;
+            transition: 0.3s ease;
         }
         
         .tab-button.active::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 30%;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 40%;
             height: 3px;
             background: #fff;
-            border-radius: 2px;
+            border-radius: 4px;
+        }
+        
+        .tab-separator {
+            width: 100%;
+            height: 1.5px;
+            background: rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+            border-radius: 1px;
         }
         
         .tab-content {
             display: none;
             text-align: left;
+            font-size: 0.95em;
             padding: 10px 0;
-            font-size: 1em;
-            animation: fadeIn 0.4s ease;
+            animation: fadeSlide 0.4s ease forwards;
+            opacity: 0;
         }
         
         .tab-content.active {
             display: block;
         }
         
-        .emoji-corner {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 1.4em;
-            animation: float 4s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-5px) rotate(5deg);
-            }
-        }
-        
-        @keyframes fadeIn {
+        @keyframes fadeSlide {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -190,10 +166,34 @@
             }
         }
         
-        @media (max-width: 480px) {
+        .emoji-corner {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+            font-size: 1.4em;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-4px) rotate(5deg);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .card {
+                padding: 24px 18px;
+            }
             .tab-button {
-                font-size: 0.85em;
-                padding: 8px 12px;
+                font-size: 0.8em;
+                padding: 6px;
+            }
+            .tab-content {
+                font-size: 0.9em;
             }
         }
     </style>
@@ -203,31 +203,27 @@
     <div class="card">
         <img src="z6742153848464_ac59b23f76801cbbb06bb03cfb7f5598.jpg" alt="Avatar" class="avatar" />
         <h1>Hoàng Kim Duy An</h1>
-        <p class="slogan">Mình là Seina, đến từ Bảo Lộc, Lâm Đồng. Hiện đang là sinh viên ngành CNTT tại Nguyen Tat Thanh University</p>
+        <p class="slogan">Mình là Seina, đến từ TP Bảo Lộc, tỉnh Lâm Đồng. Hiện là sinh viên CNTT tại NTTU.</p>
 
         <div class="social-links">
-            <a href="https://www.facebook.com/dyann.seina26" target="_blank" title="Facebook">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
-            </a>
-            <a href="https://instagram.com/_annhg.seiiu" target="_blank" title="Instagram">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" />
-            </a>
-            <a href="https://tiktok.com/@hgann1507" target="_blank" title="TikTok">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" />
-            </a>
-            <a href="https://locket.cam/seiiiu" target="_blank" title="Locket">
-                <img src="locket_app_icon-1024x1024.png" alt="Locket" />
-            </a>
+            <a href="https://facebook.com/dyann.seina25" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+            <a href="https://instagram.com/_annhg.seiiu" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /></a>
+            <a href="https://tiktok.com/@hgann1507" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" /></a>
+            <a href="https://locket.camera/u/seiiiu" target="_blank"><img src="locket_app_icon-1024x1024.png" alt="Locket" /></a>
         </div>
 
         <div class="tabs">
             <button class="tab-button active" onclick="showTab(this, 'info')">Thông tin</button>
             <button class="tab-button" onclick="showTab(this, 'game')">Game</button>
+            <button class="tab-button" onclick="showTab(this, 'bank')">Ngân hàng</button>
+            <button class="tab-button" onclick="showTab(this, 'contact')">Liên hệ</button>
         </div>
+
+        <div class="tab-separator"></div>
 
         <div id="info" class="tab-content active">
             <p>Sinh viên CNTT tại Đại học Nguyễn Tất Thành</p>
-            <p>Sống tại: Hồ Chí Minh City</p>
+            <p>Sống tại: TP. Hồ Chí Minh</p>
             <p>Quê quán: Hà Nam</p>
             <p>Sinh nhật: 15/07/2006</p>
             <p>Tình trạng: Độc thân</p>
@@ -236,6 +232,19 @@
         <div id="game" class="tab-content">
             <p>Genshin Impact: 842578123</p>
             <p>Arena Of Valor: 海诺'Seina.Ϟ</p>
+        </div>
+
+        <div id="bank" class="tab-content">
+            <p>Ngân hàng: Techcombank</p>
+            <p>Số tài khoản: 1507200631</p>
+            <p>Ngân hàng: Vietcombank</p>
+            <p>1036446932</p>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <p>Email: dyann.seina@gmail.com</p>
+            <p>Điện thoại: 0355445859</p>
+            <p>Địa chỉ: Quận 12, TP Hồ Chí Minh</p>
         </div>
 
         <div class="emoji-corner">✨🌟</div>
@@ -285,15 +294,25 @@
                 color: "transparent"
             }
         });
-    </script>
 
-    <script>
         function showTab(button, tabId) {
             const tabs = document.querySelectorAll('.tab-content');
             const buttons = document.querySelectorAll('.tab-button');
-            tabs.forEach(tab => tab.classList.remove('active'));
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.opacity = 0;
+            });
+
             buttons.forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+
+            const target = document.getElementById(tabId);
+            target.classList.add('active');
+
+            setTimeout(() => {
+                target.style.opacity = 1;
+            }, 10);
+
             button.classList.add('active');
         }
     </script>
